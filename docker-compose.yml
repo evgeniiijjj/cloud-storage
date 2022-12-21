@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    restart: always
+
+  backend:
+    build: /
+    depends_on:
+      - database
+    restart: on-failure
+
+  frontend:
+    build: frontend/
+    restart: on-failure
+
+  nginx:
+    build: nginx/
+    depends_on:
+      - frontend
+      - backend
+    links:
+      - frontend
+      - backend
+    ports:
+      - "5500:5500"
+    restart: on-failure
