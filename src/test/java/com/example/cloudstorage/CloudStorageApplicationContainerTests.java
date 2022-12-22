@@ -13,7 +13,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.*;
-import org.springframework.http.codec.multipart.MultipartHttpMessageReader;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.testcontainers.containers.GenericContainer;
@@ -51,7 +50,6 @@ public class CloudStorageApplicationContainerTests {
                 + Objects.requireNonNull(responseForLoginTest.getBody()).getToken());
         responseForUploadFileTest = upload();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     }
 
     ResponseEntity<JwtResponse> getAuthorizationToken() {
